@@ -6,7 +6,7 @@
     <title>Login - PACU!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {background-color: #f8f9fa; display:flex; align-items: center; justify-content: center; min-height: 100vh;}
+        body {background-color: #bbbbbb; display:flex; align-items: center; justify-content: center; min-height: 100vh;}
         .login-card {width: 100%; max-width: 400px; padding: 2rem; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
         .brand-title {font-weight: 700; color: #0d6efd; letter-spacing: 1px;}
     </style>
