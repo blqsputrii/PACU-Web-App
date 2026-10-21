@@ -8,3 +8,6 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'loginProcess']);
+Route::get('/dashboard', [AuthController::class, 'dashboard']);
+Route::get('/logout', [AuthController::class, 'logout']);

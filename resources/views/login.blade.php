@@ -82,8 +82,15 @@
         <p class="brand-subtitle mb-0">Platform Aplikasi Capaian Unggul</p>
     </div>
 
-    <form action="#" method="POST">
+    <form action="/login" method="POST">
         @csrf
+
+        @if(session('error'))
+           <div class="alert alert-danger p-2 small text-center mb-3"
+                {{session('error')}}
+           </div>
+        @endif
+
         <div class="mb-3">
             <label for="email" class="form-label">Email Pegawai / Admin</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
