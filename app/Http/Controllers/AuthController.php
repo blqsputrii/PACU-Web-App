@@ -38,8 +38,8 @@ return back()->with('error', 'Email atau Password salah!');
 
 public function dashboard () {
     if (!session()->has('iduser')) {
-        return redirect('/login');
-    }
+          return redirect('/login');
+          }
     return view('dashboard');
 }
 
