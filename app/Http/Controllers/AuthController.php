@@ -8,43 +8,30 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function login(): View
+    public function showRegister(): View
     {
-        return view('login');
+        return view('register');
     }
 
-public function loginProcess(Request $request) {
-    $email    = $request->input('email');
-    $password = $request->input('password');
+    public function register(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|in:admin,pegawai',
+        ]);
 
-$user = DB::table('user')
-    ->join('role', 'user.idrole', '=', 'role.idrole')
-    ->where('user.email', $email)
-    ->first();
+        DB::table('users')->insert([
+            'user_name' => $request->name,
+            'email' => $request->email,
+            'password' => request()->password,
+            'is_active' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-if ($user && $user->password === $password) {
-    session([
-        'iduser'    => $user->iduser,
-        'user_name' => $user->user_name,
-        'role_name' => $user->role_name,
-    ]);
-
-    return redirect('/dashboard');
-}
-
-return back()->with('error', 'Email atau Password salah!');
-
-}
-
-public function dashboard () {
-    if (!session()->has('iduser')) {
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Registration successful. Please log in.');
     }
-    return view('dashboard');
-}
-
-public function logout() {
-    session()->flush();
-    return redirect('/login');
-}
 }
