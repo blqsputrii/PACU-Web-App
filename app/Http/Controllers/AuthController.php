@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -24,14 +26,49 @@ class AuthController extends Controller
         ]);
 
         DB::table('users')->insert([
-            'user_name' => $request->name,
+            'name' => $request->name,
             'email' => $request->email,
-            'password' => request()->password,
-            'is_active' => 1,
+            'password' => Hash::make($request->password),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         return redirect('/login')->with('success', 'Registration successful. Please log in.');
+    }
+
+    public function login()
+    {
+        return view('login');
+    }
+
+    public function loginprocess(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'email atau password salah!',
+        ])->onlyInput('email');
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

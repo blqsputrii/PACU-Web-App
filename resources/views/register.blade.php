@@ -96,7 +96,7 @@
         <div class="title">Hi, there!</div>
         <p class="subtitle">Register your account now!</p>
 
-        <form action="{{ route('register') }}" method="POST">
+        <form action="/register" method="POST">
             @csrf
             <div class="form-group">
                 <label>Name</label>
