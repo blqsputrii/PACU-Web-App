@@ -68,7 +68,7 @@
         }
 
         .btn-custom:hover {
-            background-color: #e68a00;
+            background-color: #ff9900;
             color: white;
         }
 

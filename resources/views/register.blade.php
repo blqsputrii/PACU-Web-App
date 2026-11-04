@@ -79,7 +79,7 @@
             font-size: 15px;
             cursor: pointer;
             color: #fff;
-            background-color: #ff9800;
+            background-color: #ff9900;
             text-decoration: none;
             display: inline-block;
         }
